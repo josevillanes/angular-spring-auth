@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,15 +12,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javainuse.model.Employee;
+import com.javainuse.model.User;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@RequestMapping({ "/employees" })
 public class TestController {
 	
 	private List<Employee> employees = createList();
 
+
+	@GetMapping(produces = "application/json")
+	@RequestMapping({ "/validateLogin" })
+	public User validateLogin() {
+		return new User("User successfully authenticated");
+	}
+	
 	@RequestMapping(value = "/employees", method = RequestMethod.GET, produces = "application/json")
 	public List<Employee> firstPage() {
+		System.out.println("Entro a listar");
 		return employees;
 	}
 	
