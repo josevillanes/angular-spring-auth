@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.invalidLogin = true
-
+        alert("Usuario y/o contraseña incorrectos");
       }
     )
     );
