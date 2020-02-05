@@ -9,27 +9,30 @@ import { HttpClientService, Employee } from '../service/http-client.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  employees:Employee[];
+  employees: Employee[];
 
   constructor(
-    private httpClientService:HttpClientService
+    private httpClientService: HttpClientService
   ) { }
 
   ngOnInit() {
     this.httpClientService.getEmployees().subscribe(
-      response =>this.handleSuccessfulResponse(response),);
+      response => this.handleSuccessfulResponse(response));
   }
 
   handleSuccessfulResponse(response) {
-      this.employees=response;
-  }  
+    this.employees = response;
+  }
 
   deleteEmployee(employee: Employee): void {
-    alert(employee.empId);
     this.httpClientService.deleteEmployee(employee)
-      .subscribe( data => {
+      .subscribe(data => {
         console.log(data);
-        this.employees = this.employees.filter(u => u !== employee);
+        if (data != null) {
+          this.employees = this.employees.filter(u => u !== employee);
+        }else{
+          alert("No se ha eliminado al empleado");
+        }
       })
   };
 

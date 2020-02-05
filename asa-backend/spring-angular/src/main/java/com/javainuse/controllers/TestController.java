@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javainuse.model.Employee;
 import com.javainuse.model.User;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RestController
 @RequestMapping({ "/employees" })
 public class TestController {
@@ -28,31 +29,29 @@ public class TestController {
 		return new User("User successfully authenticated");
 	}
 	
-	@RequestMapping(value = "/employees", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(produces = "application/json")
 	public List<Employee> firstPage() {
-		System.out.println("Entro a listar");
 		return employees;
 	}
 	
-	@PostMapping(path = { "/delete" })
-	public Employee delete(@RequestBody Employee employee) {
+	@DeleteMapping(path = { "/{id}" })
+	public Employee delete(@PathVariable("id") String id) {
 		Employee deletedEmp = null;
 		for (Employee emp : employees) {
-			if (emp.getEmpId().equals(employee.getEmpId())) {
+			if (emp.getEmpId().equals(id)) {
 				employees.remove(emp);
 				deletedEmp = emp;
 				break;
 			}
 		}
 		return deletedEmp;
-	}	
+	}
 	
 	@PostMapping
 	public Employee create(@RequestBody Employee user) {
 		employees.add(user);
-		System.out.println(employees);
 		return user;
-	}	
+	}
 	
 	private static List<Employee> createList() {
 		List<Employee> tempEmployees = new ArrayList<>();

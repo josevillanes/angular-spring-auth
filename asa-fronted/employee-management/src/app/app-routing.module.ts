@@ -10,7 +10,6 @@ const routes: Routes = [
   { path:'', component: EmployeeComponent, canActivate:[AuthGaurdService]},
   { path:'addemployee', component: AddEmployeeComponent, canActivate:[AuthGaurdService]},
   { path: 'login', component: LoginComponent },
-  { path: '**', component: LoginComponent },
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGaurdService]},
 ];
 

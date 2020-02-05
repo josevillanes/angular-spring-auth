@@ -39,6 +39,7 @@ export class AuthenticationService {
   }
 
   logOut() {
+    alert("prueba");
     sessionStorage.removeItem('username')
   }
   
