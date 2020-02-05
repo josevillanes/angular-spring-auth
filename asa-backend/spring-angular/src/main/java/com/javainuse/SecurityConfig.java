@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.err.println("ENTROO");
+		System.err.println("SecurityConfig.configure");
 		http.csrf().disable().
 
 				authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		System.err.println("VALIDANDO");
+		System.err.println("SecurityConfig.configureGlobal");
 		auth.inMemoryAuthentication().withUser("javainuse").password("{noop}password").roles("USER");
 	}
 }
